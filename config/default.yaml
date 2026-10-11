@@ -1,0 +1,261 @@
+# Continuity Engine v0.2 baseline configuration
+# 所有数值均为“起始假设”，不是实测或认证值。调整必须关联配置版本与测试结果。
+
+version: "0.2.0-baseline"
+profile: "desktop_companion_static"
+
+runtime:
+  decision_period_s: 1.0
+  max_normal_event_age_s: 5.0
+  max_queue_size: 2000
+  event_batch_max: 100
+  event_schema_version: "1.0"
+  queue_overload:
+    reserved_control_capacity: 64
+    safety_latch_enabled: true
+    preserve_kinds: ["SAFETY_STOP", "USER_STOP", "USER_CANCEL", "USER_MUTE", "ACTION_TERMINAL"]
+    discard_order: ["expired_normal", "coalesce_replaceable_state", "duplicate_telemetry", "lowest_priority_transient_observation"]
+    never_silently_drop_control_events: true
+  replay:
+    enabled: false
+    forbid_external_network: true
+    forbid_real_llm: true
+    forbid_real_hardware: true
+    require_simulated_adapters: true
+  config_reload:
+    enabled: true
+    apply_at_decision_boundary: true
+    atomic_full_config_swap: true
+    reloadable_paths:
+      - "interaction.ordinary_proactive_messages"
+      - "drives.default.rest.tau_s"
+      - "drives.default.exploration.tau_s"
+      - "drives.default.social.tau_s"
+      - "policy.switch_margin"
+      - "policy.min_dwell_time_s"
+      - "policy.ordinary_candidate_threshold"
+      - "affect.expression_hysteresis_enabled"
+    restart_required_paths:
+      - "safety"
+      - "privacy"
+      - "llm.tool_allowlist_enabled"
+      - "runtime.event_schema_version"
+      - "runtime.max_queue_size"
+      - "runtime.queue_overload"
+      - "memory.backend"
+      - "runtime.replay"
+    reject_partial_reload: true
+  tick_dt_warn_s: 5.0
+  tick_dt_reject_negative: true
+  shutdown_timeout_s: 5.0
+  persist_on_shutdown: true
+
+product:
+  autonomous_mobility_enabled: false
+  camera_enabled: false
+  raw_audio_persistent_storage: false
+  raw_video_persistent_storage: false
+  cloud_llm_enabled: true
+  local_core_required: true
+
+interaction:
+  ordinary_proactive_messages:
+    max_count: 2
+    rolling_window_s: 3600
+    cooldown_s: 1200
+  do_not_speak_while_user_speaking: true
+  respect_persistent_quiet_mode: true
+  user_cancel_invalidates_pending_results: true
+  allow_no_action: true
+  proactive_requires_reason_code: true
+  default_quiet_scope: "SESSION"
+  clarification_max_rounds_per_intent: 2
+  clarification_deduplicate_semantic_questions: true
+  clarification_on_limit_low_risk: "safe_default_or_explain"
+  clarification_on_limit_high_risk: "stop_and_explain"
+
+world_model:
+  confirm_confidence: 0.90
+  probable_confidence: 0.55
+  conflict_confidence: 0.60
+  accepted_confidence_min: 0.0
+  accepted_confidence_max: 1.0
+  presence_observation_ttl_s: 5.0
+  identity_observation_ttl_s: 5.0
+  transient_sound_ttl_s: 2.0
+  unknown_on_stale_presence: true
+  direct_confidence_averaging: false
+  conflict_state_enabled: true
+  visual_debounce:
+    window_frames: 5
+    min_positive_frames: 3
+  # Per-sensor confidence calibration remains TBD and must be measured.
+
+# Drive values are normalized to [0, 1]. Time constants do not define urgency.
+drives:
+  value_min: 0.0
+  value_max: 1.0
+  default:
+    rest:
+      tau_s: 3600.0
+      target: 0.2
+      update_policy: "activity_and_verified_rest"
+    safety:
+      tau_s: 3.0
+      target: 0.1
+      update_policy: "evidence_and_risk_context"
+    exploration:
+      tau_s: 60.0
+      target: 0.1
+      update_policy: "novelty_and_information_gain"
+    social:
+      tau_s: 1200.0
+      target: 0.15
+      update_policy: "context_and_verified_interaction"
+    task:
+      tau_s: null
+      target: null
+      update_policy: "task_progress_deadline_success_failure"
+  offline:
+    max_integrator_substep_s: 30.0
+    do_not_invent_unobserved_events: true
+    mark_stale_world_observations: true
+
+prediction:
+  require_source_lineage_for_updates: true
+  rebuild_affected_partition_on_memory_delete: true
+  reset_partition_if_rebuild_impossible: true
+  initial_model: "simple_statistics"
+  ema_alpha_baseline: 0.1
+  min_independent_observations_for_provisional_pattern: 3
+  single_anomaly_large_update: false
+  require_confidence_weighted_update: true
+  expire_predictions: true
+  # Calibration, alpha and sample thresholds must be validated by scenario tests.
+
+policy:
+  utility_weights:
+    goal_benefit: 0.40
+    information_value: 0.20
+    personality_match: 0.10
+    execution_cost: 0.10
+    interruption_cost: 0.20
+  switch_margin: 0.15
+  min_dwell_time_s: 10.0
+  consecutive_evaluations_to_switch: 2
+  ordinary_candidate_threshold: 0.65
+  high_urgency_review_threshold: 0.80
+  allow_no_action: true
+  user_cancel_bypasses_switch_hysteresis: true
+  emergency_bypasses_switch_hysteresis: true
+  safety_filter_required: true
+  interruption_policy_by_intent:
+    speech_output: "REPLAN_IF_STILL_VALID"
+    user_task: "RESUME_IF_VALID"
+    exploration: "REPLAN"
+    greeting: "DROP_IF_STALE"
+    rest: "RESUME_IF_VALID"
+
+llm:
+  enabled: true
+  required_for_core_loop: false
+  default_timeout_s: 12.0
+  max_retries: 1
+  max_concurrent_requests: 2
+  invalidate_stale_results: true
+  enforce_json_schema: true
+  tool_allowlist_enabled: true
+  allowed_tools: []  # Empty by default: no model-proposed tool call is executable.
+  world_fact_allowlist:
+    - owner_present
+    - room_activity
+    - day_period
+    - weather_summary
+    - known_object_summary
+    - sound_event_summary
+  context_token_budgets:
+    simple_response: 2000
+    complex_dialogue: 4000
+    multi_step_plan: 6000
+    memory_consolidation: 4000
+  retry_after_safety_denial_max: 1
+  no_raw_sensor_upload_by_default: true
+  fallback:
+    simple_response: "local_template_or_silent"
+    complex_plan: "pause_or_explain_unavailable"
+    memory_consolidation: "defer"
+    stop_cancel: "local_path"
+
+memory:
+  backend: "sqlite"
+  ordinary_event_max_count: 10000
+  ordinary_event_retention_days: 7
+  raw_audio_retention: "none_by_default"
+  raw_video_retention: "none_by_default"
+  preserve_source_provenance: true
+  llm_memories_are_candidates_only: true
+  require_privacy_check_before_write: true
+  deduplicate_before_write: true
+  conflict_policy: "retain_provenance_and_mark_conflict"
+  deletion:
+    propagate_to_summaries: true
+    propagate_to_indexes_and_caches: true
+    rebuild_derived_prediction_state: true
+    reset_unrebuildable_affected_partitions: true
+    report_partial_failure: true
+  consolidation:
+    low_priority: true
+    cancellable: true
+    run_only_when_idle_or_low_load: true
+    max_runtime_s: 60.0
+  # Storage cap in bytes and backup deletion semantics must be set for target device.
+
+personality:
+  update_enabled: false
+  min_evidence_count_baseline: 10
+  max_abs_delta_per_update: 0.02
+  require_audit_record: true
+  rollback_supported: true
+
+affect:
+  enabled: false
+  expression_hysteresis_enabled: true
+  affect_cannot_override_policy: true
+  affect_cannot_override_safety: true
+
+fault_handling:
+  reject_nan_and_infinity: true
+  reject_negative_dt: true
+  invalid_output_isolation:
+    window_s: 10.0
+    noncritical_invalid_outputs_before_isolation: 3
+  critical_safety_output_invalid: "immediate_block_and_safe_state"
+  automatic_recovery_requires_health_check: true
+  use_last_valid_state_when_safe: true
+
+observability:
+  structured_logs: true
+  include_event_id: true
+  include_intent_id: true
+  include_action_id: true
+  include_state_version: true
+  log_raw_audio: false
+  log_raw_video: false
+  log_full_sensitive_prompt: false
+  audit_retention_days: 30
+
+performance_targets:
+  internal_state_update_p95_ms: 10
+  normal_event_processing_p95_ms: 100
+  cancel_local_path_p95_ms: 200
+  engine_resident_memory_mb: 100
+  idle_cpu_one_core_fraction: 0.10
+  soak_test_hours_initial: 72
+
+# TBD before product freeze:
+# - target CPU/SoC, RAM/storage budget, OS and sensor specifications
+# - actual LLM provider, token window, data residency and budget
+# - calibrated sensor confidence and world-model fusion implementation
+# - exact StateViewBuilder schemas for each LLM purpose and event-schema migration fixtures
+# - final privacy/legal policy for target market
+# - separate safety limits for any physical actuators
