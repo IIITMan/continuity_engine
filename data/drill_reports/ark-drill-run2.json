@@ -1,0 +1,1217 @@
+{
+  "schema_version": "1.0",
+  "run_id": "457b25f7-dc6f-43cf-bdb7-5d2a951bb598",
+  "started_at": 1791879138.5563805,
+  "completed_at": 1791879631.0704057,
+  "duration_s": 492.514,
+  "provider": {
+    "vendor": "volcano-ark",
+    "endpoint_host": "ark.cn-beijing.volces.com",
+    "endpoint_path": "/api/v3/chat/completions",
+    "model": "doubao-seed-2-1-pro-260915",
+    "api_key_configured": true,
+    "streaming": false,
+    "thinking_disabled": true,
+    "reliability_layer": true,
+    "retry_policy": {
+      "max_attempts": 3,
+      "base_delay_s": 0.4,
+      "max_delay_s": 4.0,
+      "jitter_ratio": 0.25,
+      "max_total_retry_wait_s": 10.0,
+      "respect_retry_after": true,
+      "retry_kinds": [
+        "CONNECT",
+        "RATE_LIMIT",
+        "SERVER",
+        "TIMEOUT"
+      ]
+    },
+    "gateway_timeout_s": 45.0,
+    "max_concurrent": 2,
+    "action_executor": "simulated",
+    "transcript_persistence": "enabled (local plaintext SQLite)"
+  },
+  "config": {
+    "turns": 60,
+    "max_report_turns": 200,
+    "retry_policy": {
+      "max_attempts": 3,
+      "base_delay_s": 0.4,
+      "max_delay_s": 4.0,
+      "jitter_ratio": 0.25,
+      "max_total_retry_wait_s": 10.0,
+      "respect_retry_after": true,
+      "retry_kinds": [
+        "CONNECT",
+        "RATE_LIMIT",
+        "SERVER",
+        "TIMEOUT"
+      ]
+    },
+    "circuit_failure_threshold": 3,
+    "circuit_recovery_timeout_s": 2.0,
+    "deadline_timeout_s": 1.0,
+    "scenarios": {
+      "compatibility": true,
+      "conversation": true,
+      "transport_drills": true,
+      "cancellation": true,
+      "outage_recovery": true,
+      "restart": true
+    }
+  },
+  "compatibility": [
+    {
+      "purpose": "demand_understanding",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 4.0667
+    },
+    {
+      "purpose": "simple_response",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 6.4305
+    },
+    {
+      "purpose": "complex_dialogue",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 7.2208
+    },
+    {
+      "purpose": "task_plan",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 2.8355
+    },
+    {
+      "purpose": "multi_step_plan",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 6.7014
+    },
+    {
+      "purpose": "memory_consolidation",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 1.4358
+    },
+    {
+      "purpose": "provider_metadata",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 7.5104,
+      "reported_model": "doubao-seed-2-1-pro-260915",
+      "prompt_tokens": 370,
+      "completion_tokens": 34,
+      "reasoning_tokens": 0,
+      "thinking_disabled_verified": true
+    }
+  ],
+  "conversation": {
+    "interaction_id": "drill-conversation-457b25f7",
+    "turn_count": 60,
+    "completed": 57,
+    "degraded": 2,
+    "failed": 2,
+    "passed_turns": 58,
+    "pass_rate": 0.9667,
+    "error_rate": 0.0333,
+    "latency_p50_s": 6.2618,
+    "latency_p95_s": 13.3684,
+    "latency_max_s": 14.9415,
+    "latency_stats": {
+      "count": 60,
+      "min_s": 0.008,
+      "p50_s": 6.2618,
+      "p95_s": 13.3684,
+      "max_s": 14.9415,
+      "mean_s": 7.2703
+    },
+    "wall_duration_s": 436.2212,
+    "memory_recall_ok": true,
+    "context_continuation_ok": true,
+    "no_fabrication_ok": true,
+    "per_turn": [
+      {
+        "index": 0,
+        "status": "MEMORY_SAVED",
+        "passed": true,
+        "latency_s": 0.008,
+        "response_chars": 20,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 1,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 3.9173,
+        "response_chars": 57,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 2,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.9927,
+        "response_chars": 114,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 3,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 13.4653,
+        "response_chars": 146,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 4,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 1.7895,
+        "response_chars": 7,
+        "error_code": null,
+        "degraded": false,
+        "label": "memory_recall",
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 5,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 12.0927,
+        "response_chars": 306,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 6,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.2879,
+        "response_chars": 97,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 7,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.1025,
+        "response_chars": 192,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 8,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 9.661,
+        "response_chars": 189,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 9,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 13.3684,
+        "response_chars": 475,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 10,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 11.7829,
+        "response_chars": 452,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 11,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 12.4647,
+        "response_chars": 402,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 12,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 3.6493,
+        "response_chars": 72,
+        "error_code": null,
+        "degraded": false,
+        "label": "context_continuation",
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 13,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 3.4944,
+        "response_chars": 49,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 14,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.1988,
+        "response_chars": 141,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 15,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.3067,
+        "response_chars": 64,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 16,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.9268,
+        "response_chars": 158,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 17,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2422,
+        "response_chars": 91,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 18,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 10.3509,
+        "response_chars": 72,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 19,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.8301,
+        "response_chars": 109,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 20,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.4468,
+        "response_chars": 75,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 21,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.4054,
+        "response_chars": 122,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 22,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 10.0017,
+        "response_chars": 254,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 23,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 9.6224,
+        "response_chars": 206,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 24,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2061,
+        "response_chars": 179,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 25,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 8.3013,
+        "response_chars": 165,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 26,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 14.9415,
+        "response_chars": 255,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 27,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.3932,
+        "response_chars": 51,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 28,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.0972,
+        "response_chars": 44,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 29,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.6512,
+        "response_chars": 73,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 30,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 8.3029,
+        "response_chars": 174,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 31,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.4736,
+        "response_chars": 153,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 32,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.4685,
+        "response_chars": 80,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 33,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.3905,
+        "response_chars": 178,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 34,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2194,
+        "response_chars": 126,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 35,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.1688,
+        "response_chars": 107,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 36,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.7049,
+        "response_chars": 173,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 37,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.6595,
+        "response_chars": 64,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 38,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.8926,
+        "response_chars": 217,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 39,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 9.7499,
+        "response_chars": 305,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 40,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 8.3316,
+        "response_chars": 264,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 41,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.3116,
+        "response_chars": 90,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 42,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2536,
+        "response_chars": 157,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 43,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 12.3041,
+        "response_chars": 79,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 44,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.5226,
+        "response_chars": 184,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 45,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2362,
+        "response_chars": 99,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 46,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.0285,
+        "response_chars": 79,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 47,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 9.3553,
+        "response_chars": 112,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 48,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.4674,
+        "response_chars": 71,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 49,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 10.1116,
+        "response_chars": 193,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 50,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 13.6724,
+        "response_chars": 338,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 51,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.2618,
+        "response_chars": 196,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 52,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.5338,
+        "response_chars": 250,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 53,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.9958,
+        "response_chars": 184,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 54,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 11.6149,
+        "response_chars": 383,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 55,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.3344,
+        "response_chars": 152,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 56,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 3.7385,
+        "response_chars": 46,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 57,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 5.1992,
+        "response_chars": 88,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 58,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 10.6986,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 59,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 5.2161,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      }
+    ]
+  },
+  "transport_drills": [
+    {
+      "name": "controlled_retry_recovers_from_transient_faults",
+      "passed": true,
+      "observed": {
+        "injected_faults": [
+          "RATE_LIMIT(retry_after=1s)",
+          "SERVER(503)",
+          "CONNECT"
+        ],
+        "succeeded": true,
+        "error": null,
+        "wall_s": 5.3163,
+        "attempts": 4,
+        "retries": 3,
+        "retries_by_kind": {
+          "RATE_LIMIT": 1,
+          "SERVER": 1,
+          "CONNECT": 1
+        },
+        "retry_wait_s": 3.628748,
+        "retry_after_observed_s": 1.0,
+        "rate_limit_waits_s": 1.0
+      }
+    },
+    {
+      "name": "authentication_failure_is_not_retried",
+      "passed": true,
+      "observed": {
+        "injected_fault": "AUTH(401)",
+        "raised": "ProviderAuthError",
+        "attempts": 1,
+        "retries": 0,
+        "failures_by_kind": {
+          "AUTH": 1
+        },
+        "no_fabricated_success": true,
+        "wall_s": 0.0002
+      }
+    },
+    {
+      "name": "side_effecting_request_is_never_replayed",
+      "passed": true,
+      "observed": {
+        "injected_fault": "RATE_LIMIT(retry_after=0.2s)",
+        "request_replay_safe": false,
+        "raised": "ProviderRateLimitError",
+        "attempts": 1,
+        "retries": 0,
+        "retries_suppressed_no_replay": 1
+      }
+    },
+    {
+      "name": "circuit_opens_during_outage_and_recovers",
+      "passed": true,
+      "observed": {
+        "outage_requests": 4,
+        "state_after_outage": "OPEN",
+        "fail_fast_latency_s": 0.0002,
+        "network_fail_latency_s": 0.1593,
+        "circuit_rejections": 1,
+        "waited_for_recovery_s": 2.097,
+        "half_open_probe_succeeded": true,
+        "probe_latency_s": 1.7084,
+        "state_after_recovery": "CLOSED"
+      }
+    },
+    {
+      "name": "client_deadline_is_bounded_and_client_still_usable",
+      "passed": true,
+      "observed": {
+        "deadline_s": 1.0,
+        "observed_timeout_s": 1.0025,
+        "raised_timeout": true,
+        "followup_call_succeeded": true,
+        "followup_latency_s": 1.5702,
+        "attempts": 2
+      }
+    }
+  ],
+  "cancellation": {
+    "mode": "asyncio task cancellation mid-flight plus control-lane STOP",
+    "tasks_before": 2,
+    "tasks_after_cancel": 2,
+    "tasks_final": 2,
+    "no_leaked_tasks": true,
+    "cancel_raised": null,
+    "control_stop_status": "CONTROL_ACCEPTED",
+    "control_interrupted": false
+  },
+  "restart": {
+    "recall_after_restart_ok": false,
+    "status": "DEGRADED",
+    "turns_before_close": 4,
+    "turns_after_restart": 6,
+    "context_restored": false
+  },
+  "outage_recovery": {
+    "outage_turns": 2,
+    "outage_statuses": [
+      "DEGRADED",
+      "DEGRADED"
+    ],
+    "outage_used_disclosed_degradation": [
+      true,
+      true
+    ],
+    "failures_were_honest": true,
+    "waited_for_circuit_recovery_s": 1.5236,
+    "recovered": false,
+    "recovery_status": "DEGRADED",
+    "recovery_latency_s": 2.493
+  },
+  "reliability": {
+    "session_gateway": {
+      "policy": {
+        "max_attempts": 3,
+        "base_delay_s": 0.4,
+        "max_delay_s": 4.0,
+        "jitter_ratio": 0.25,
+        "max_total_retry_wait_s": 10.0,
+        "respect_retry_after": true,
+        "retry_kinds": [
+          "CONNECT",
+          "RATE_LIMIT",
+          "SERVER",
+          "TIMEOUT"
+        ]
+      },
+      "circuit": {
+        "state": "OPEN",
+        "consecutive_failures": 5,
+        "failure_threshold": 3,
+        "recovery_timeout_s": 2.0,
+        "opened_events": 3,
+        "rejected_while_open": 4
+      },
+      "metrics": {
+        "requests": 71,
+        "attempts": 71,
+        "successes": 66,
+        "failures": 5,
+        "retries": 4,
+        "retries_suppressed_no_replay": 0,
+        "retry_wait_s": 1.976329,
+        "rate_limit_waits_s": 0.0,
+        "retry_after_observed_s": 0.0,
+        "circuit_rejections": 4,
+        "failures_by_kind": {
+          "UNKNOWN": 1,
+          "CONNECT": 3,
+          "SERVER": 1
+        },
+        "retries_by_kind": {
+          "CONNECT": 3,
+          "SERVER": 1
+        },
+        "privacy": "counters only; no prompts, responses, or credentials"
+      },
+      "delegate": "FaultInjectingAdapter"
+    },
+    "transport_drills": {
+      "requests": 10,
+      "attempts": 12,
+      "successes": 3,
+      "failures": 8,
+      "retries": 3,
+      "retries_suppressed_no_replay": 1,
+      "retry_wait_s": 3.628748,
+      "rate_limit_waits_s": 1.0,
+      "retry_after_observed_s": 1.0,
+      "circuit_rejections": 1,
+      "failures_by_kind": {
+        "RATE_LIMIT": 2,
+        "SERVER": 1,
+        "CONNECT": 4,
+        "AUTH": 1
+      },
+      "retries_by_kind": {
+        "RATE_LIMIT": 1,
+        "SERVER": 1,
+        "CONNECT": 1
+      },
+      "privacy": "counters only; no prompts, responses, or credentials"
+    }
+  },
+  "companion_metrics": {
+    "uptime_s": 489.2350465001073,
+    "conversation_count": 63,
+    "statuses": {
+      "MEMORY_SAVED": 1,
+      "COMPLETED": 57,
+      "DEGRADED": 5
+    },
+    "channels": {
+      "text": 63
+    },
+    "errors": {
+      "DEGRADED_LOCAL_FALLBACK": 5
+    },
+    "latency_samples": 63,
+    "latency_p50_s": 6.253587400075048,
+    "latency_p95_s": 13.368379899999127,
+    "privacy": "no raw text, prompts, credentials, or audio stored"
+  },
+  "resources": {
+    "sample_count": 1847,
+    "rss_bytes": {
+      "min": 38002688.0,
+      "max": 72499200.0,
+      "mean": 66243503.61017867,
+      "last": 71557120.0
+    },
+    "py_traced_bytes": {
+      "min": 9910.0,
+      "max": 8932921.0,
+      "mean": 7978049.460205739,
+      "last": 8096079.0
+    },
+    "py_traced_peak_bytes": 8934553,
+    "threads": {
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.032485110990796,
+      "last": 2.0
+    },
+    "asyncio_tasks": {
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 2.958852192744992,
+      "last": 1.0
+    },
+    "note": "RSS is null when neither psutil nor a platform memory API is available."
+  },
+  "verdicts": {
+    "output_contract_all_purposes": true,
+    "thinking_mode_disabled": true,
+    "long_conversation_no_hard_failures": false,
+    "memory_recall_across_turns": true,
+    "context_continuation": true,
+    "no_fabrication_without_live_data": true,
+    "controlled_retry_recovers_from_transient_faults": true,
+    "authentication_failure_is_not_retried": true,
+    "side_effecting_request_is_never_replayed": true,
+    "circuit_opens_during_outage_and_recovers": true,
+    "client_deadline_is_bounded_and_client_still_usable": true,
+    "cancellation_no_leaked_tasks": true,
+    "control_lane_interrupts_inflight": false,
+    "restart_restores_context": false,
+    "outage_failures_were_honest": true,
+    "service_recovers_after_outage": false
+  },
+  "token_usage": {
+    "responses": 66,
+    "prompt_tokens": 105541,
+    "completion_tokens": 9505,
+    "total_tokens": 115046,
+    "reasoning_tokens": 0,
+    "last": {
+      "prompt_tokens": 1843,
+      "completion_tokens": 101,
+      "total_tokens": 1944,
+      "reasoning_tokens": 0,
+      "model": "doubao-seed-2-1-pro-260915"
+    }
+  },
+  "passed": false,
+  "notes": [],
+  "privacy": "statuses, timings, counters and boolean results only; no prompts, responses, audio or credentials"
+}

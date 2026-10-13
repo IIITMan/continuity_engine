@@ -1,0 +1,32 @@
+# Volcano Ark (火山方舟 / Doubao) example provider profile.
+#
+# Copy to config/llm.local.yaml (gitignored) and keep the secret in an environment
+# variable — never commit a real key. Load with:
+#   OpenAICompatibleAdapter.from_file("config/llm.local.yaml")
+# or drive the drill with:
+#   python examples/real_provider_drill.py --turns 60 --disable-thinking --enable-reliability
+provider:
+  endpoint_url: https://ark.cn-beijing.volces.com/api/v3/chat/completions
+  # A model id or an endpoint id (ep-...). Verify the exact id for your account.
+  model: doubao-seed-2-1-pro-260915
+  api_key_env: CONTINUITY_LLM_API_KEY
+
+  # Request budget: gateway deadline and adapter transport timeouts (seconds).
+  timeout_s: 45.0
+  connect_timeout_s: 10.0
+  read_timeout_s: 40.0
+  pool_timeout_s: 5.0
+
+  # Connection pool: keep-alive reuse for a long-lived companion process.
+  max_connections: 20
+  max_keepalive_connections: 10
+
+  temperature: 0.2
+
+  # Doubao/Ark "thinking" mode. The engine relies on strict JSON output and bounded
+  # latency, so thinking is disabled explicitly here.
+  disable_thinking: true
+
+  # Streaming aggregates SSE deltas back into the validated JSON payload. Enable it
+  # only if the host renders progressive output; it does not change validation.
+  stream: false

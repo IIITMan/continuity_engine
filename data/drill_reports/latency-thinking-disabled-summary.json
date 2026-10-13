@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "probe": "single-request latency",
+  "measured_at": "2026-10-13 17:03:29",
+  "provider": {
+    "vendor": "volcano-ark",
+    "endpoint_host": "ark.cn-beijing.volces.com",
+    "model": "doubao-seed-2-1-pro-260915"
+  },
+  "settings": {
+    "thinking_disabled": true,
+    "stream": false,
+    "reliability_layer": false,
+    "temperature": 0.2,
+    "output_token_budget": 256,
+    "purpose": "simple_response",
+    "prompt_tokens_per_request": 409
+  },
+  "totals": {
+    "requests": 20,
+    "succeeded": 20,
+    "failed": 0,
+    "error_rate": 0.0,
+    "latency_s": {
+      "min": 1.2621,
+      "p50": 1.8484,
+      "mean": 3.0452,
+      "p90": 5.5638,
+      "p95": 8.4267,
+      "max": 15.2593,
+      "stdev": 3.3334
+    },
+    "reasoning_tokens_total": 0,
+    "completion_tokens": {
+      "total": 599,
+      "mean": 29.95,
+      "max": 46
+    },
+    "output_tokens_per_s": 9.84,
+    "stalls_over_3s": [
+      5.564,
+      8.427,
+      15.259
+    ]
+  },
+  "batches": [
+    {
+      "batch": 1,
+      "file": "data/drill_reports/latency-thinking-disabled.json",
+      "summary": {
+        "model": "doubao-seed-2-1-pro-260915",
+        "thinking_disabled": true,
+        "stream": false,
+        "requested": 10,
+        "succeeded": 10,
+        "failed": 0,
+        "error_rate": 0.0,
+        "latency_s": {
+          "min": 1.2621,
+          "p50": 1.8293,
+          "mean": 2.1351,
+          "p90": 2.4056,
+          "p95": 5.5638,
+          "max": 5.5638,
+          "stdev": 1.2592
+        },
+        "completion_tokens": {
+          "total": 278,
+          "min": 23,
+          "mean": 27.8,
+          "max": 34
+        },
+        "output_tokens_per_s": 13.02,
+        "reasoning_tokens": {
+          "total": 0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "batch": 2,
+      "file": "data/drill_reports/latency-thinking-disabled-batch2.json",
+      "summary": {
+        "model": "doubao-seed-2-1-pro-260915",
+        "thinking_disabled": true,
+        "stream": false,
+        "requested": 10,
+        "succeeded": 10,
+        "failed": 0,
+        "error_rate": 0.0,
+        "latency_s": {
+          "min": 1.2979,
+          "p50": 2.1166,
+          "mean": 3.9553,
+          "p90": 8.4267,
+          "p95": 15.2593,
+          "max": 15.2593,
+          "stdev": 4.4756
+        },
+        "completion_tokens": {
+          "total": 321,
+          "min": 26,
+          "mean": 32.1,
+          "max": 46
+        },
+        "output_tokens_per_s": 8.12,
+        "reasoning_tokens": {
+          "total": 0,
+          "max": 0
+        }
+      }
+    }
+  ],
+  "privacy": "timings and token counts only; no prompt or response text"
+}

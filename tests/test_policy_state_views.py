@@ -82,6 +82,26 @@ def test_llm_world_view_omits_unapproved_sensitive_fact_keys():
     assert "private address" not in rendered
 
 
+def test_simple_response_includes_only_allowlisted_fresh_world_facts():
+    from continuity_engine import WorldFact, WorldStatus
+
+    state = EngineState()
+    state.world["day_period"] = WorldFact(
+        "day_period", "evening", WorldStatus.CONFIRMED, 0.99, ("clock_service",), 5.0, 50.0, ("evt-time",)
+    )
+    state.world["weather_summary"] = WorldFact(
+        "weather_summary", "light rain", WorldStatus.CONFIRMED, 0.95, ("weather_service",), 5.0, 8.0, ("evt-weather",)
+    )
+    state.world["owner_present"] = WorldFact(
+        "owner_present", True, WorldStatus.CONFIRMED, 0.99, ("camera",), 1.0, 4.0, ("evt-stale",)
+    )
+    builder = StateViewBuilder()
+    view = builder.build("simple_response", state, user_input="现在是什么天气？", now_mono=10.0)
+    assert view.to_dict()["world_summary"] == [
+        {"key": "day_period", "value": "evening", "status": "CONFIRMED", "confidence": 0.99, "updated_at_mono": 5.0}
+    ]
+
+
 def test_plan_view_rejects_unapproved_task_progress_fields():
     with pytest.raises(StateViewError):
         StateViewBuilder().build("multi_step_plan", EngineState(), goal="task", task_progress={"raw_engine_state": {"secret": 1}})

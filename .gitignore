@@ -1,37 +1,21 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-
-# Virtual environments
 .venv/
-venv/
-env/
-ENV/
-
-# Test / coverage / build
+__pycache__/
 .pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
+*.py[cod]
 *.egg-info/
-dist/
 build/
+dist/
+config/llm.local.yaml
+config/*.secret.yaml
+.env
+.env.*
 
-# IDE / editor
-.idea/
-.vscode/
-*.swp
+# Local persistent data (memories and opt-in transcripts may be sensitive).
+# Matched at any depth: memories and recent-dialogue stores hold plaintext
+# conversation content and must never be committed.
+*.sqlite3*
+*.db*
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Runtime data
-*.db
-*.sqlite
-*.sqlite3
-*.log
+# Local working copy of the v0.25 implementation (duplicate tree, already merged into
+# the repository root). Kept out of version control to avoid a second copy of the source.
+/continuity_engine_impl_v0.25.0-dev/

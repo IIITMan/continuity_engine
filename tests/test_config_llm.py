@@ -98,8 +98,48 @@ def test_replay_network_guard_blocks_socket_api_and_restores():
     original = socket.create_connection
     with ReplayNetworkGuard():
         with pytest.raises(ReplayNetworkAccessError):
-            socket.create_connection(("127.0.0.1", 1), timeout=0.01)
+            socket.create_connection(("203.0.113.1", 1), timeout=0.01)
     assert socket.create_connection is original
+
+
+def test_replay_guard_allows_local_loopback_and_asyncio_run():
+    import asyncio
+    import socket
+
+    # Windows ProactorEventLoop may emulate socketpair with a TCP loopback connection.
+    # The guard must allow this local IPC while still blocking external destinations.
+    async def tiny_coro():
+        await asyncio.sleep(0)
+        return "ok"
+
+    with ReplayNetworkGuard():
+        assert asyncio.run(tiny_coro()) == "ok"
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+            listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            listener.bind(("127.0.0.1", 0))
+            listener.listen(1)
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+                client.connect(listener.getsockname())
+                accepted, _ = listener.accept()
+                accepted.close()
+        # Remote destinations must be rejected before the OS attempts a connection.
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as remote:
+            with pytest.raises(ReplayNetworkAccessError):
+                remote.connect(("203.0.113.1", 443))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as remote:
+            with pytest.raises(ReplayNetworkAccessError):
+                remote.connect_ex(("203.0.113.1", 443))
+
+
+def test_replay_guard_blocks_external_resolution_and_udp_send():
+    import socket
+
+    with ReplayNetworkGuard():
+        with pytest.raises(ReplayNetworkAccessError):
+            socket.getaddrinfo("example.com", 443)
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+            with pytest.raises(ReplayNetworkAccessError):
+                sock.sendto(b"blocked", ("203.0.113.1", 9))
 
 
 def test_invalidate_intent_cancels_provider_worker_not_calling_workflow():
@@ -145,9 +185,9 @@ def test_nested_replay_network_guards_keep_network_blocked_until_last_exit():
     with outer:
         with inner:
             with pytest.raises(ReplayNetworkAccessError):
-                socket.create_connection(("127.0.0.1", 1), timeout=0.01)
+                socket.create_connection(("203.0.113.1", 1), timeout=0.01)
         with pytest.raises(ReplayNetworkAccessError):
-            socket.create_connection(("127.0.0.1", 1), timeout=0.01)
+            socket.create_connection(("203.0.113.1", 1), timeout=0.01)
     assert socket.create_connection is original
 
 
@@ -161,7 +201,7 @@ def test_replay_mode_rejects_subclasses_that_could_override_safe_adapters():
     with pytest.raises(ReplayModeError):
         LLMGateway(UnsafeReplaySubclass(), replay_mode=True, action_executor=ReplayActionExecutor())
     with pytest.raises(ReplayModeError):
-        from continuity_engine.llm_gateway import ReplayGuard
+        from continuity_engine.llm.llm_gateway import ReplayGuard
         ReplayGuard.validate(replay_mode=True, llm_adapter=None, action_executor=type("DerivedExecutor", (ReplayActionExecutor,), {})())
 
 

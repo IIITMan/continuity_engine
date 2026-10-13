@@ -1,0 +1,8 @@
+# Copy to config/llm.local.yaml and keep that local file out of version control.
+# Prefer api_key_env so the secret itself stays in the process environment.
+provider:
+  endpoint_url: https://YOUR-APPROVED-ENDPOINT/api/v3/chat/completions
+  model: YOUR-MODEL-OR-EP-ID
+  api_key_env: CONTINUITY_LLM_API_KEY
+  timeout_s: 30.0
+  temperature: 0.2

@@ -33,16 +33,16 @@
 
 ## AD-003：回放模式彻底禁止真实 LLM 与硬件副作用
 
-**决定：第一版提供离线回放模式，且回放模式不允许真实网络调用、真实 LLM 请求或真实硬件动作。**
+**决定：第一版提供离线回放模式，且回放模式不允许外部网络访问、真实 LLM 请求或真实硬件动作。为支持本地事件循环，允许 loopback TCP 与 Unix-domain IPC；这不属于外部网络访问。**
 
 - 通过依赖注入选择 `ReplayLLMAdapter`、`SimulatedActionExecutor`、固定时钟和可控随机数生成器。
-- 回放只允许读取本地 fixture 和写入独立的临时/回放数据库；不使用生产凭据，不连接生产外设，不访问外部网络。
+- 回放只允许读取本地 fixture 和写入独立的临时/回放数据库；不使用生产凭据，不连接生产外设，不访问外部网络。`ReplayNetworkGuard` 允许 IPv4/IPv6 loopback 与 Unix-domain IPC（Windows ProactorEventLoop 可能用 loopback TCP 模拟 `socketpair()`），但拒绝外部连接、非本地名称解析及外部发送。
 - 运行时若检测到 replay mode 却注入了真实 LLM、真实动作适配器或非白名单网络客户端，启动必须失败。
 - 回放输入应包含事件序列、配置版本、schema 版本、seed、录制的 LLM 返回（如有）和期望断言。
 - 回放不再次调用真正的 LLM；LLM 结果只能来自 fixture 或确定性的 stub。
 - 第一版不支持“半回放半真实执行”的混合模式。
 
-验收：测试期间断言没有外部网络出站、真实 LLM provider 调用或硬件适配器调用；任何违反都会使测试失败。
+验收：测试期间断言没有外部网络出站、外部 DNS/名称解析、真实 LLM provider 调用或硬件适配器调用；本地 loopback/Unix IPC 可用且不被算作网络泄漏。任何违反都会使测试失败。
 
 ## AD-004：热配置重载白名单
 

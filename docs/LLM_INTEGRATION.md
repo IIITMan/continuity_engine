@@ -1,6 +1,6 @@
 # LLM_INTEGRATION.md
 
-版本：0.2.0  
+版本：0.5.0-dev  
 目标：让 LLM 提供复杂认知与自然语言能力，但不成为生命引擎的唯一运行前提或无约束控制器。
 
 ## 1. 职责边界
@@ -30,6 +30,7 @@ LLM 不得直接：
 | `simple_response` | 当前输入、互动设置、最少对话上下文 | 2,000 |
 | `complex_dialogue` | 当前输入、相关对话、当前任务、相关记忆引用 | 4,000 |
 | `multi_step_plan` | 目标、当前状态、依赖、允许工具、约束、必要历史 | 6,000 |
+| `task_plan` | 目标、允许的内部动作类型、确认的世界事实、失败/进度摘要、约束 | 6,000 |
 | `memory_consolidation` | 指定时间范围内、带来源的候选事件 | 4,000 |
 
 上下文构建器必须按目的选择字段，不能直接序列化整个状态或全部记忆。需明确标出事实、推断、未知和过期信息。每条重要记忆应携带来源引用或 memory ID。
@@ -142,4 +143,12 @@ LLM **只能读取按 purpose 生成的过滤摘要视图**，不得读取/序�
 
 ## 12. 回放模式限制（强制）
 
-回放模式使用 recorded fixture、确定性 stub、固定时钟和模拟执行器；禁止真实 LLM 请求、真实硬件调用和外部网络出站。不支持半回放半真实执行。启动时必须检查 adapter 与运行模式一致，否则失败退出。详细决策见 `ARCH_DECISIONS.md` 的 AD-003。
+回放模式使用 recorded fixture、确定性 stub、固定时钟和模拟执行器；禁止真实 LLM 请求、真实硬件调用和外部网络出站。仅允许 loopback/Unix-domain 本地 IPC，供操作系统事件循环使用。不支持半回放半真实执行。启动时必须检查 adapter 与运行模式一致，否则失败退出。详细决策见 `ARCH_DECISIONS.md` 的 AD-003。
+
+## 12. OpenAI-compatible adapter (optional)
+
+`OpenAICompatibleAdapter` is an optional `httpx`-based adapter. Install with `pip install -e ".[provider]"` and configure `CONTINUITY_LLM_ENDPOINT`, `CONTINUITY_LLM_MODEL`, and optionally `CONTINUITY_LLM_API_KEY` / `CONTINUITY_LLM_TIMEOUT_S`. The endpoint must be explicitly approved by the product privacy policy. Never commit API credentials.
+
+The adapter uses a purpose-specific system prompt and requests a JSON object, then `LLMGateway` validates the output schema and `TaskManager` validates a plan again before acceptance. This is a compatibility adapter, not a guarantee that every OpenAI-compatible service supports the same response-format/request fields. Provider tests use an in-memory mock transport; no live endpoint has been tested. Close owned clients with `await adapter.aclose()` during orderly shutdown.
+
+`task_plan` output is strictly `{ "steps": [{"description": str, "action_type": allowlisted_action, "args": object}] }`. The model cannot set retries, step IDs, deadlines, task priority, or arbitrary external tool names. Final TaskManager validation remains authoritative.

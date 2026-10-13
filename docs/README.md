@@ -1,4 +1,4 @@
-# Continuity Engine 工程基线文件（v0.2）
+# Continuity Engine 工程文档索引（v0.9 开发基线）
 
 本目录将 Continuity Engine 的讨论整理成可进入工程评审的初始文件集。
 
@@ -8,7 +8,8 @@
 - `ARCH_DECISIONS.md`：7 项高优先级架构决策的冻结答案与验收标准。
 - `ENGINE_CONTRACTS.md`：模块职责、状态所有权、事件、意图、动作和故障处理契约。
 - `config/default.yaml`：第一版可配置参数基线。
-- `LLM_INTEGRATION.md`：LLM 网关、请求生命周期、上下文、工具权限与降级策略。
+- `LLM_INTEGRATION.md`：LLM 网关、可选 HTTP 适配器、请求生命周期、上下文、工具权限与降级策略。
+- `LLM_TASK_PLANNER.md`：受限任务计划生成、预检、事件提交、取消与重规划。
 - `ACCEPTANCE_TESTS.md`：测试矩阵、起始验收阈值、测试方法和通过条件。
 
 ## 重要说明
@@ -45,3 +46,20 @@
 5. 记忆删除必须重建派生状态或重置受影响模型分区。
 6. 安全/停止/取消/静音/动作终态事件走保留通道与必要的独立 latch。
 7. 每个意图最多两轮澄清，超限后安全降级。
+
+
+## v0.3 development
+
+- `AUTONOMOUS_BEHAVIOR.md` documents the deterministic autonomous candidate generator (quiet rest, observation request, conservative social check-in).
+- Implementation details and test coverage are summarized in the project root `README.md` and `TEST_REPORT.md`.
+
+### v0.5 development
+
+- `LLMTaskPlanner` routes filtered `task_plan` requests through the gateway, validates supported action plans, preflights against a copied `TaskManager`, and enqueues an idempotent plan event.
+- `OpenAICompatibleAdapter` is optional; deterministic examples use `ReplayLLMAdapter` only.
+
+### v0.9 capability providers
+
+- `../docs/V0_9_PROVIDERS.md` describes the persistent reminder lifecycle, native desktop notification requirements, Open-Meteo weather provider, Wikipedia/MediaWiki knowledge retrieval, opt-in network flags, host startup/shutdown, and failure semantics.
+- `../examples/v09_capabilities_demo.py` is an interactive host integration example. It uses local reminders by default; weather/knowledge HTTP requires explicit `--enable-weather` / `--enable-knowledge` flags.
+- `../tests/test_v09_providers.py` covers reminder parsing/persistence/background delivery and list/cancel, plus end-to-end weather/knowledge routing through a bundle using `httpx.MockTransport` (no public API calls).

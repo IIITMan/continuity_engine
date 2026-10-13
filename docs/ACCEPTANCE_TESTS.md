@@ -175,3 +175,40 @@ P95 表示 95% 的样本不超过阈值。单项阈值不能替代真实设备�
 - 同义问题不得重复提出；进程重启后计数仍保留。
 - 超出上限后低风险任务进入安全默认/说明状态，高风险任务停止执行并说明缺失信息。
 - 重新生成内部 intent ID 不得重置同一用户任务的澄清预算。
+
+## 9. Sequential task manager (v0.4)
+
+- A valid linear plan yields its first step as an ordinary policy candidate; no step bypasses the safety supervisor.
+- Plan submissions reject unknown action types, unallowlisted observation keys, malformed arguments, duplicate step IDs, excessive step counts, oversized payloads, and unsafe retry settings.
+- A `SUCCEEDED` receipt advances exactly one step; final success marks the plan `SUCCEEDED`.
+- A failed step is retried only when the action type is configured retry-safe, retries remain, and the executor returns `details.retryable=true`.
+- `CANCELLED`, `TIMED_OUT`, and `UNKNOWN` do not blindly replay side effects. Ambiguous step results require an explicit `TASK_RESOLVE_STEP` decision.
+- `TASK_CANCEL` cancels the active plan and requests cancellation of a matching in-flight task action; `TASK_PAUSE` and `TASK_RESUME` obey their state transitions.
+- A task snapshot saved while an action is running must restore as `NEEDS_RECONCILIATION`, never auto-dispatching the prior action.
+- A `TASK_PLAN_SUBMITTED` plan cannot preempt safety or user-control events, and plan steps remain subject to normal intent switching and policy checks.
+
+
+## 10. Sequential task manager, replan and observation feedback (v0.4)
+
+- A definite failed step yields a stable `EngineStepResult.replan_request`; the same failure yields the same request ID until a replacement is accepted.
+- A replacement plan must use `replaces_task_id` exactly matching the current definitely failed task; mismatched IDs or replacement of an unknown/active task are rejected.
+- `TIMED_OUT`/`UNKNOWN` produces reconciliation, not an automatic replan or side-effect replay.
+- A manual retry after reconciliation requires explicit confirmation of non-completion and is limited to one human-authorized retry per step.
+- Task snapshot recovery rejects unknown action types, invalid args, duplicate step IDs, invalid/non-finite timestamps and index/status inconsistencies.
+- A safety denial after task action binding but before executor entry unbinds the action and rolls the attempt counter back; no false attempt is recorded.
+- Successful `OBSERVE` result accepts only a single object with `value`, `confidence`, and optional `ttl_s`, binds it to the requested key, and queues a normal allowlisted world-observation event. Extra keys, invalid confidence/TTL or non-allowlisted target produce no world update.
+- Task deadline expiring while an action is running becomes `NEEDS_RECONCILIATION`; it must not be marked expired and then treated as a definite non-execution.
+- Host-side replan demo must pass in replay mode without invoking a real LLM, network or hardware.
+
+
+## 11. LLM task planner + provider adapter (v0.5)
+
+- A `task_plan` view contains exactly the purpose allowlist fields; raw engine state and unapproved fields never reach the adapter.
+- Candidate outputs must be linear plans with 1..max_steps entries and exactly `description`, `action_type`, `args` per step. Unsupported action types or malformed arguments are rejected before queueing.
+- Final TaskManager preflight must reject unallowlisted `OBSERVE` keys; the live TaskManager validates again when the event is consumed.
+- A plan-generation result becomes `QUEUED`, not `ACCEPTED`; core diagnostics/state are authoritative.
+- Stable queued request IDs do not call the LLM or enqueue twice. Inflight duplicate requests return `IN_PROGRESS`; cancellation racing with event enqueue is serialized.
+- Replanning requires the exact current task to be in definite `FAILED`; `UNKNOWN`/timeout is not automatically retried or replanned.
+- An active task that starts while a different plan is being generated causes the stale plan to be discarded.
+- The OpenAI-compatible adapter is tested only with `httpx.MockTransport`; tests verify JSON mode request construction, response parsing, authorization header behavior, and refusal of remote plaintext HTTP. No live endpoint/network is used.
+- A real endpoint must be separately tested for purpose-specific output schemas, response-format support, deadlines/cancellation, provider retention policy, rate limits, and privacy approval.

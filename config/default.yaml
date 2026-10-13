@@ -1,7 +1,7 @@
-# Continuity Engine v0.2 baseline configuration
+# Continuity Engine v0.16 development configuration
 # 所有数值均为“起始假设”，不是实测或认证值。调整必须关联配置版本与测试结果。
 
-version: "0.2.0-baseline"
+version: "0.20.0-dev"
 profile: "desktop_companion_static"
 
 runtime:
@@ -44,11 +44,63 @@ runtime:
       - "runtime.queue_overload"
       - "memory.backend"
       - "runtime.replay"
+      - "autonomy"
+      - "tasks"
+      - "life_layer"
+      - "action_execution.body"
+      - "drives.default.attachment"
     reject_partial_reload: true
   tick_dt_warn_s: 5.0
   tick_dt_reject_negative: true
   shutdown_timeout_s: 5.0
   persist_on_shutdown: true
+
+
+# User-request routing is capability-based; providers are disabled unless explicitly wired.
+request_routing:
+  enabled: true
+  default_timezone: "Asia/Tokyo"
+  default_location: null
+  clarification_max_rounds: 2
+  max_request_chars: 10000
+  protected_locations: ["卧室", "浴室", "卫生间", "bathroom"]
+  fail_closed_on_unknown_actions: true
+
+capabilities:
+  # Local reminders are supported, but only become available after the host starts
+  # the persistent scheduler with a working notification delivery backend.
+  reminders_enabled: true
+  # Network providers remain explicit opt-in to avoid unexpected network access.
+  weather_enabled: false
+  knowledge_search_enabled: false
+  timers_enabled: false
+  media_control_enabled: false
+  device_control_enabled: false
+  audio_capabilities_enabled: true
+  # Camera/mobility also require the product-level hardware feature flags below.
+
+# Affect is transient expression state. Personality is stable, local, and only learns
+# from explicit style feedback. It never changes safety permissions or action policy.
+affect_personality:
+  enabled: true
+  persistence_path: "data/personality_state.json"
+  initial_traits:
+    warmth: 0.68
+    curiosity: 0.66
+    playfulness: 0.38
+    directness: 0.62
+    verbosity: 0.42
+    initiative: 0.35
+  initial_affect:
+    valence: 0.0
+    arousal: 0.18
+    social_energy: 0.55
+  learning:
+    explicit_feedback_only: true
+    max_trait_delta_per_feedback: 0.05
+    min_trait_value: 0.0
+    max_trait_value: 1.0
+    persist_raw_dialogue: false
 
 product:
   autonomous_mobility_enabled: false
@@ -91,6 +143,33 @@ world_model:
     min_positive_frames: 3
   # Per-sensor confidence calibration remains TBD and must be measured.
 
+tasks:
+  enabled: true
+  max_steps: 8
+  # Maximum total model attempts for a plan proposal. Only schema/plan rejection
+  # triggers repair; timeout, cancellation, stale requests and provider failures do not.
+  plan_generation_max_attempts: 2
+  # Only keys backed by an injected ObservationProvider are usable by OBSERVE.
+  # Derived values (e.g. day_period/weather_summary) can be LLM-visible without being observable actions.
+  observe_world_key_allowlist:
+    - owner_present
+    - room_activity
+    - known_object_summary
+    - sound_event_summary
+  max_plan_json_bytes: 16384
+  history_limit: 20
+  default_priority: 0.88
+  default_step_timeout_s: 30.0
+  maximum_step_timeout_s: 600.0
+  maximum_task_deadline_s: 86400.0
+  # First version supports a single linear plan; no parallel branches or arbitrary tools.
+  parallel_steps_enabled: false
+  conditional_steps_enabled: false
+  retry_only_when_executor_marks_retryable: true
+  # LLM may propose only these internal, schema-validated action types. No arbitrary tools.
+  llm_plannable_action_types: ["SPEAK", "NOTIFY", "OBSERVE", "WAIT", "LIGHT"]
+  ambiguous_result_requires_reconciliation: true
+
 # Drive values are normalized to [0, 1]. Time constants do not define urgency.
 drives:
   value_min: 0.0
@@ -116,6 +195,10 @@ drives:
       tau_s: null
       target: null
       update_policy: "task_progress_deadline_success_failure"
+    attachment:
+      tau_s: 1800.0
+      target: 0.0
+      update_policy: "confirmed_absence_only"
   offline:
     max_integrator_substep_s: 30.0
     do_not_invent_unobserved_events: true
@@ -132,6 +215,29 @@ prediction:
   require_confidence_weighted_update: true
   expire_predictions: true
   # Calibration, alpha and sample thresholds must be validated by scenario tests.
+
+autonomy:
+  enabled: true
+  rest:
+    threshold: 0.78
+    candidate_score: 0.67
+    suppression_s: 300.0
+    max_duration_s: 300.0
+    exit_threshold: 0.45
+  exploration:
+    threshold: 0.55
+    cooldown_s: 120.0
+    world_keys: [sound_event_summary, known_object_summary, room_activity]
+  social:
+    enabled: true
+    target_base: 0.15
+    target_max: 0.75
+    target_ramp_s: 1800.0
+    min_idle_s: 1800.0
+    drive_threshold: 0.42
+    owner_presence_confidence_min: 0.85
+    cooldown_s: 1200.0
+    message: "需要我帮忙或聊聊时，随时叫我。"
 
 policy:
   utility_weights:
@@ -161,7 +267,9 @@ llm:
   required_for_core_loop: false
   default_timeout_s: 12.0
   max_retries: 1
-  max_concurrent_requests: 2
+  # Single-engine dialogue state is sequential by design; higher concurrency belongs
+  # in a host-level queue or separate engine instances.
+  max_concurrent_requests: 1
   invalidate_stale_results: true
   enforce_json_schema: true
   tool_allowlist_enabled: true
@@ -177,6 +285,7 @@ llm:
     simple_response: 2000
     complex_dialogue: 4000
     multi_step_plan: 6000
+    task_plan: 6000
     memory_consolidation: 4000
   retry_after_safety_denial_max: 1
   no_raw_sensor_upload_by_default: true
@@ -259,3 +368,101 @@ performance_targets:
 # - exact StateViewBuilder schemas for each LLM purpose and event-schema migration fixtures
 # - final privacy/legal policy for target market
 # - separate safety limits for any physical actuators
+
+
+
+# LIFE_LAYER v0.16: all organs are locally deterministic. Physical expression is opt-in.
+life_layer:
+  enabled: true
+  field:
+    enabled: true
+    security_wave: "safety"
+    low_activation: 0.45
+    sleep_security_threshold: 0.45
+    sleep_struggle_cap: 0.30
+  will:
+    enabled: true
+    tick_s: 5.0
+    low_tension_threshold: 0.45
+    useless_probability: 0.0  # enable 0.08 only after UX cadence evaluation
+    attempt_max_retry: 3
+    action_waves_excluded: ["safety", "security"]
+  attachment:
+    enabled: true
+    initial_trust: 20.0
+    imprint_days: 14
+    separation_k: 0.0009
+    separation_cap: 0.8
+    brief_s: 1800.0
+    long_away_s: 14400.0
+    confidence_min: 0.85
+  life_stream:
+    enabled: true
+    max_entries_per_day: 500
+    retention_days: 7
+    seed: "continuity-engine-v0.16"
+  temperament:
+    enabled: true
+    baseline: 0.5
+    max_offset: 0.3
+    event_step: 0.08
+    initial_traits: {}
+  habituation:
+    enabled: true
+    repeat_scale: 0.25  # expressive attenuation only; never filters safety evidence
+    max_event_types: 32
+  breath:
+    enabled: true
+    base_bpm: 12.0
+    max_bpm: 24.0
+    sleep_bpm: 9.0
+    min_depth: 0.4
+    max_depth: 1.0
+    arousal_tau_s: 4.0
+    burst_tau_s: 20.0
+  expression:
+    enabled: true
+    max_chars: 400
+    bubble_chars: 100
+  fallback:
+    enabled: true
+  body:
+    enabled: false
+    action_allowlist: []
+
+# Real local side effects require an explicit opt-in. The engine constructor still
+# defaults to the simulated adapter unless the host injects the executor below.
+action_execution:
+  mode: "simulated"  # switch to "real" only after reviewing local OS/device permissions
+  max_text_chars: 2000
+  max_wait_s: 300.0
+  result_cache_size: 10000
+  speech:
+    enabled: true
+    rate_wpm: 180
+    backend: "platform_native"
+  notification:
+    enabled: true
+    display_seconds: 4
+    backend: "platform_native"
+  sysfs_led:
+    enabled: false
+    led_name: null
+    root: "/sys/class/leds"
+
+
+# v0.9 capability provider settings. Network integrations are constructed only when
+# their capability feature flags above are explicitly enabled.
+provider_services:
+  reminder:
+    database_path: "data/reminders.sqlite3"
+    poll_interval_s: 0.5
+    delivery_timeout_s: 15.0
+    max_horizon_s: 2592000  # 30 days
+  weather:
+    timeout_s: 8.0
+  knowledge:
+    timeout_s: 10.0
+    max_results: 3
+    max_extract_chars: 1400
+    cache_ttl_s: 900.0

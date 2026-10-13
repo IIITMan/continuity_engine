@@ -1,0 +1,1225 @@
+{
+  "schema_version": "1.0",
+  "run_id": "0dc0f25e-c363-4522-a684-cfeb976fcda3",
+  "started_at": 1791880047.7916977,
+  "completed_at": 1791880129.9214673,
+  "duration_s": 82.13,
+  "provider": {
+    "vendor": "volcano-ark",
+    "endpoint_host": "ark.cn-beijing.volces.com",
+    "endpoint_path": "/api/v3/chat/completions",
+    "model": "doubao-seed-2-1-pro-260915",
+    "api_key_configured": true,
+    "streaming": false,
+    "thinking_disabled": true,
+    "reliability_layer": true,
+    "retry_policy": {
+      "max_attempts": 3,
+      "base_delay_s": 0.4,
+      "max_delay_s": 4.0,
+      "jitter_ratio": 0.25,
+      "max_total_retry_wait_s": 10.0,
+      "respect_retry_after": true,
+      "retry_kinds": [
+        "CONNECT",
+        "RATE_LIMIT",
+        "SERVER",
+        "TIMEOUT"
+      ]
+    },
+    "gateway_timeout_s": 45.0,
+    "max_concurrent": 2,
+    "action_executor": "simulated",
+    "transcript_persistence": "enabled (local plaintext SQLite)"
+  },
+  "config": {
+    "turns": 60,
+    "max_report_turns": 200,
+    "retry_policy": {
+      "max_attempts": 3,
+      "base_delay_s": 0.4,
+      "max_delay_s": 4.0,
+      "jitter_ratio": 0.25,
+      "max_total_retry_wait_s": 10.0,
+      "respect_retry_after": true,
+      "retry_kinds": [
+        "CONNECT",
+        "RATE_LIMIT",
+        "SERVER",
+        "TIMEOUT"
+      ]
+    },
+    "circuit_failure_threshold": 3,
+    "circuit_recovery_timeout_s": 2.0,
+    "deadline_timeout_s": 1.0,
+    "scenarios": {
+      "compatibility": true,
+      "conversation": true,
+      "transport_drills": true,
+      "cancellation": true,
+      "outage_recovery": true,
+      "restart": true
+    }
+  },
+  "compatibility": [
+    {
+      "purpose": "demand_understanding",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 3.301
+    },
+    {
+      "purpose": "simple_response",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 3.6301
+    },
+    {
+      "purpose": "complex_dialogue",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 5.0951
+    },
+    {
+      "purpose": "task_plan",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 2.4708
+    },
+    {
+      "purpose": "multi_step_plan",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 4.9905
+    },
+    {
+      "purpose": "memory_consolidation",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 1.5715
+    },
+    {
+      "purpose": "provider_metadata",
+      "status": "COMPLETED",
+      "contract_ok": true,
+      "samples": 1,
+      "violations": 0,
+      "violation_rate": 0.0,
+      "first_error_code": null,
+      "latency_s": 2.6478,
+      "reported_model": "doubao-seed-2-1-pro-260915",
+      "prompt_tokens": 370,
+      "completion_tokens": 33,
+      "reasoning_tokens": 0,
+      "thinking_disabled_verified": true
+    }
+  ],
+  "conversation": {
+    "interaction_id": "drill-conversation-0dc0f25e",
+    "turn_count": 60,
+    "completed": 4,
+    "degraded": 55,
+    "failed": 0,
+    "passed_turns": 5,
+    "pass_rate": 0.0833,
+    "degradation_rate": 0.9167,
+    "error_rate": 0.0,
+    "latency_p50_s": 0.0269,
+    "latency_p95_s": 4.1114,
+    "latency_max_s": 7.9164,
+    "latency_stats": {
+      "count": 60,
+      "min_s": 0.0083,
+      "p50_s": 0.0269,
+      "p95_s": 4.1114,
+      "max_s": 7.9164,
+      "mean_s": 0.4827
+    },
+    "wall_duration_s": 28.9661,
+    "memory_recall_ok": true,
+    "context_continuation_ok": false,
+    "no_fabrication_ok": true,
+    "per_turn": [
+      {
+        "index": 0,
+        "status": "MEMORY_SAVED",
+        "passed": true,
+        "latency_s": 0.0083,
+        "response_chars": 20,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 1,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 4.1114,
+        "response_chars": 76,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 2,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 6.5834,
+        "response_chars": 141,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 3,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 7.9164,
+        "response_chars": 128,
+        "error_code": null,
+        "degraded": false,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 4,
+        "status": "COMPLETED",
+        "passed": true,
+        "latency_s": 1.9882,
+        "response_chars": 7,
+        "error_code": null,
+        "degraded": false,
+        "label": "memory_recall",
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 5,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 6.799,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 6,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.033,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 7,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0377,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 8,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0411,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 9,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0394,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 10,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0339,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 11,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0331,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 12,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0374,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": "context_continuation",
+        "required_ok": false,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 13,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0335,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 14,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0404,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 15,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.029,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 16,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0261,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 17,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0262,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 18,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0242,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 19,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.027,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 20,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0264,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 21,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0259,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 22,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0298,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 23,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0255,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 24,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0339,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 25,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0306,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 26,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.027,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 27,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0305,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 28,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0241,
+        "response_chars": 23,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 29,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0251,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 30,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0265,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 31,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0256,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 32,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0261,
+        "response_chars": 40,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 33,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0326,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 34,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0293,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 35,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0238,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 36,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0249,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 37,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0241,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 38,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0242,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 39,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0245,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 40,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0264,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 41,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0303,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 42,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0265,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 43,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0244,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 44,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0282,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 45,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.026,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 46,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0261,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 47,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0257,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 48,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0301,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 49,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0383,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 50,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0352,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 51,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0257,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 52,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0272,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 53,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0306,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 54,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0259,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 55,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0244,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 56,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0242,
+        "response_chars": 23,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 57,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0252,
+        "response_chars": 52,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 58,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0269,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      },
+      {
+        "index": 59,
+        "status": "DEGRADED",
+        "passed": false,
+        "latency_s": 0.0257,
+        "response_chars": 36,
+        "error_code": "DEGRADED_LOCAL_FALLBACK",
+        "degraded": true,
+        "label": null,
+        "required_ok": true,
+        "forbidden_ok": true,
+        "length_ok": true
+      }
+    ]
+  },
+  "transport_drills": [
+    {
+      "name": "controlled_retry_recovers_from_transient_faults",
+      "passed": true,
+      "observed": {
+        "injected_faults": [
+          "RATE_LIMIT(retry_after=1s)",
+          "SERVER(503)",
+          "CONNECT"
+        ],
+        "succeeded": true,
+        "error": null,
+        "wall_s": 5.1947,
+        "attempts": 4,
+        "retries": 3,
+        "retries_by_kind": {
+          "RATE_LIMIT": 1,
+          "SERVER": 1,
+          "CONNECT": 1
+        },
+        "retry_wait_s": 3.396774,
+        "retry_after_observed_s": 1.0,
+        "rate_limit_waits_s": 1.0
+      }
+    },
+    {
+      "name": "authentication_failure_is_not_retried",
+      "passed": true,
+      "observed": {
+        "injected_fault": "AUTH(401)",
+        "raised": "ProviderAuthError",
+        "attempts": 1,
+        "retries": 0,
+        "failures_by_kind": {
+          "AUTH": 1
+        },
+        "no_fabricated_success": true,
+        "wall_s": 0.0004
+      }
+    },
+    {
+      "name": "side_effecting_request_is_never_replayed",
+      "passed": true,
+      "observed": {
+        "injected_fault": "RATE_LIMIT(retry_after=0.2s)",
+        "request_replay_safe": false,
+        "raised": "ProviderRateLimitError",
+        "attempts": 1,
+        "retries": 0,
+        "retries_suppressed_no_replay": 1
+      }
+    },
+    {
+      "name": "circuit_opens_during_outage_and_recovers",
+      "passed": true,
+      "observed": {
+        "outage_requests": 4,
+        "state_after_outage": "OPEN",
+        "fail_fast_latency_s": 0.0006,
+        "network_fail_latency_s": 0.1651,
+        "circuit_rejections": 1,
+        "waited_for_recovery_s": 2.099,
+        "half_open_probe_succeeded": true,
+        "probe_latency_s": 2.0159,
+        "state_after_recovery": "CLOSED"
+      }
+    },
+    {
+      "name": "client_deadline_is_bounded_and_client_still_usable",
+      "passed": true,
+      "observed": {
+        "deadline_s": 1.0,
+        "observed_timeout_s": 1.0126,
+        "raised_timeout": true,
+        "followup_call_succeeded": true,
+        "followup_latency_s": 2.1233,
+        "attempts": 2
+      }
+    }
+  ],
+  "cancellation": {
+    "mode": "asyncio task cancellation mid-flight plus control-lane STOP (injected slow fault keeps both requests in flight)",
+    "request_inflight_when_cancelled": true,
+    "control_request_inflight_when_stopped": true,
+    "tasks_before": 2,
+    "tasks_after_cancel": 2,
+    "tasks_final": 2,
+    "no_leaked_tasks": true,
+    "cancel_raised": "CancelledError",
+    "control_stop_status": "CONTROL_ACCEPTED",
+    "control_outcome_status": "STALE",
+    "control_interrupted": true
+  },
+  "restart": {
+    "recall_after_restart_ok": true,
+    "status": "COMPLETED",
+    "attempts": 2,
+    "turns_before_close": 4,
+    "turns_after_restart": 8,
+    "context_restored": true
+  },
+  "outage_recovery": {
+    "outage_turns": 2,
+    "outage_statuses": [
+      "DEGRADED",
+      "DEGRADED"
+    ],
+    "outage_used_disclosed_degradation": [
+      true,
+      true
+    ],
+    "failures_were_honest": true,
+    "waited_for_circuit_recovery_s": 1.5388,
+    "recovery_attempts": 3,
+    "recovered": false,
+    "recovery_status": "DEGRADED",
+    "recovery_latency_s": 2.5448
+  },
+  "reliability": {
+    "session_gateway": {
+      "policy": {
+        "max_attempts": 3,
+        "base_delay_s": 0.4,
+        "max_delay_s": 4.0,
+        "jitter_ratio": 0.25,
+        "max_total_retry_wait_s": 10.0,
+        "respect_retry_after": true,
+        "retry_kinds": [
+          "CONNECT",
+          "RATE_LIMIT",
+          "SERVER",
+          "TIMEOUT"
+        ]
+      },
+      "circuit": {
+        "state": "OPEN",
+        "consecutive_failures": 6,
+        "failure_threshold": 3,
+        "recovery_timeout_s": 2.0,
+        "opened_events": 4,
+        "rejected_while_open": 59
+      },
+      "metrics": {
+        "requests": 70,
+        "attempts": 16,
+        "successes": 10,
+        "failures": 6,
+        "retries": 5,
+        "retries_suppressed_no_replay": 0,
+        "retry_wait_s": 2.507926,
+        "rate_limit_waits_s": 0.0,
+        "retry_after_observed_s": 0.0,
+        "circuit_rejections": 59,
+        "failures_by_kind": {
+          "CONNECT": 5,
+          "SERVER": 1
+        },
+        "retries_by_kind": {
+          "CONNECT": 4,
+          "SERVER": 1
+        },
+        "privacy": "counters only; no prompts, responses, or credentials"
+      },
+      "delegate": "FaultInjectingAdapter"
+    },
+    "transport_drills": {
+      "requests": 10,
+      "attempts": 12,
+      "successes": 3,
+      "failures": 8,
+      "retries": 3,
+      "retries_suppressed_no_replay": 1,
+      "retry_wait_s": 3.396774,
+      "rate_limit_waits_s": 1.0,
+      "retry_after_observed_s": 1.0,
+      "circuit_rejections": 1,
+      "failures_by_kind": {
+        "RATE_LIMIT": 2,
+        "SERVER": 1,
+        "CONNECT": 4,
+        "AUTH": 1
+      },
+      "retries_by_kind": {
+        "RATE_LIMIT": 1,
+        "SERVER": 1,
+        "CONNECT": 1
+      },
+      "privacy": "counters only; no prompts, responses, or credentials"
+    }
+  },
+  "companion_metrics": {
+    "uptime_s": 75.28888060012832,
+    "conversation_count": 65,
+    "statuses": {
+      "MEMORY_SAVED": 1,
+      "COMPLETED": 4,
+      "DEGRADED": 60
+    },
+    "channels": {
+      "text": 65
+    },
+    "errors": {
+      "DEGRADED_LOCAL_FALLBACK": 60
+    },
+    "latency_samples": 65,
+    "latency_p50_s": 0.02692499989643693,
+    "latency_p95_s": 4.111348900012672,
+    "privacy": "no raw text, prompts, credentials, or audio stored"
+  },
+  "resources": {
+    "sample_count": 307,
+    "rss_bytes": {
+      "min": 38035456.0,
+      "max": 69423104.0,
+      "mean": 65274189.5504886,
+      "last": 69357568.0
+    },
+    "py_traced_bytes": {
+      "min": 9910.0,
+      "max": 8069887.0,
+      "mean": 7497667.674267101,
+      "last": 7713290.0
+    },
+    "py_traced_peak_bytes": 8145643,
+    "threads": {
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.3127035830618892,
+      "last": 2.0
+    },
+    "asyncio_tasks": {
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 2.788273615635179,
+      "last": 1.0
+    },
+    "note": "RSS is null when neither psutil nor a platform memory API is available."
+  },
+  "verdicts": {
+    "output_contract_all_purposes": true,
+    "thinking_mode_disabled": true,
+    "long_conversation_no_hard_failures": true,
+    "memory_recall_across_turns": true,
+    "context_continuation": false,
+    "no_fabrication_without_live_data": true,
+    "controlled_retry_recovers_from_transient_faults": true,
+    "authentication_failure_is_not_retried": true,
+    "side_effecting_request_is_never_replayed": true,
+    "circuit_opens_during_outage_and_recovers": true,
+    "client_deadline_is_bounded_and_client_still_usable": true,
+    "cancellation_no_leaked_tasks": true,
+    "cancellation_was_inflight": true,
+    "control_lane_interrupts_inflight": true,
+    "restart_restores_context": true,
+    "outage_failures_were_honest": true,
+    "service_recovers_after_outage": false
+  },
+  "token_usage": {
+    "responses": 10,
+    "prompt_tokens": 8232,
+    "completion_tokens": 900,
+    "total_tokens": 9132,
+    "reasoning_tokens": 0,
+    "last": {
+      "prompt_tokens": 1227,
+      "completion_tokens": 10,
+      "total_tokens": 1237,
+      "reasoning_tokens": 0,
+      "model": "doubao-seed-2-1-pro-260915"
+    }
+  },
+  "passed": false,
+  "notes": [
+    "the provider was still not answering after the injected outage ended; the engine degraded honestly, so 'recovery' could not be observed in this run"
+  ],
+  "privacy": "statuses, timings, counters and boolean results only; no prompts, responses, audio or credentials"
+}
